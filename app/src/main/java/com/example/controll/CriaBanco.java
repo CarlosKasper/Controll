@@ -1,0 +1,38 @@
+package com.example.controll;
+
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+
+/**
+ * Created by Jow on 29/12/2016.
+ */
+
+public class CriaBanco extends SQLiteOpenHelper {
+    public static final String NOME_BANCO = "BD.db";
+    public static final String TABELA = "gastos";
+    public static final String ID = "_id";
+    public static final String DIA = "dia";
+    public static final String GASTOS = "gastos";
+    public static final String LUGAR = "lugar";
+    public static final String DESCRICAO = "descricao";
+    public static final int VERSAO = 5;
+    public static final String ID2 = "_id";
+
+    public CriaBanco(Context context) {
+        super(context, NOME_BANCO, null, VERSAO);
+    }
+
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+    String sql = "CREATE TABLE "+TABELA+"("+ID+" integer primary key autoincrement," + DIA +" text not null," + GASTOS +" integer(11) not null," + LUGAR + " text not null, "+DESCRICAO +" text not null)";
+        db.execSQL(sql);
+
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+    db.execSQL("DROP TABLE IF EXISTS " + TABELA);
+        onCreate(db);
+    }
+}
